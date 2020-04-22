@@ -34,12 +34,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnVerbindungenSuchen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.listHaltestelleBis = new System.Windows.Forms.ListBox();
             this.listHaltestelleVon = new System.Windows.Forms.ListBox();
+            this.checkOrtschaft = new System.Windows.Forms.CheckBox();
+            this.checkVerbindungen = new System.Windows.Forms.CheckBox();
+            this.checkNaehe = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,15 +47,15 @@
             // 
             this.txtHaltestelleVon.Location = new System.Drawing.Point(45, 27);
             this.txtHaltestelleVon.Name = "txtHaltestelleVon";
-            this.txtHaltestelleVon.Size = new System.Drawing.Size(194, 20);
+            this.txtHaltestelleVon.Size = new System.Drawing.Size(200, 20);
             this.txtHaltestelleVon.TabIndex = 0;
             this.txtHaltestelleVon.TextChanged += new System.EventHandler(this.txtHaltestelleVon_Suchen);
             // 
             // txtHaltestelleBis
             // 
-            this.txtHaltestelleBis.Location = new System.Drawing.Point(347, 27);
+            this.txtHaltestelleBis.Location = new System.Drawing.Point(341, 27);
             this.txtHaltestelleBis.Name = "txtHaltestelleBis";
-            this.txtHaltestelleBis.Size = new System.Drawing.Size(194, 20);
+            this.txtHaltestelleBis.Size = new System.Drawing.Size(200, 20);
             this.txtHaltestelleBis.TabIndex = 1;
             this.txtHaltestelleBis.TextChanged += new System.EventHandler(this.btnVerbindungenSuchen_Click);
             // 
@@ -94,16 +94,6 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Erweiterte Suche";
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(618, 93);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(184, 17);
-            this.radioButton1.TabIndex = 6;
-            this.radioButton1.Text = "Verbindungen ab einer Haltestelle";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(45, 394);
@@ -113,32 +103,12 @@
             this.button2.Text = "Weiterleiten";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(618, 133);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(184, 17);
-            this.radioButton2.TabIndex = 8;
-            this.radioButton2.Text = "Ortschaft einer Haltestelle suchen";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(618, 174);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(217, 17);
-            this.radioButton3.TabIndex = 9;
-            this.radioButton3.Text = "Haltestellen in der Nähe anzeigen lassen";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
             // listHaltestelleBis
             // 
             this.listHaltestelleBis.FormattingEnabled = true;
-            this.listHaltestelleBis.Location = new System.Drawing.Point(347, 53);
+            this.listHaltestelleBis.Location = new System.Drawing.Point(341, 53);
             this.listHaltestelleBis.Name = "listHaltestelleBis";
-            this.listHaltestelleBis.Size = new System.Drawing.Size(194, 134);
+            this.listHaltestelleBis.Size = new System.Drawing.Size(200, 134);
             this.listHaltestelleBis.TabIndex = 10;
             this.listHaltestelleBis.Click += new System.EventHandler(this.listHaltestelleBis_SelectedIndexChanged);
             // 
@@ -147,21 +117,52 @@
             this.listHaltestelleVon.FormattingEnabled = true;
             this.listHaltestelleVon.Location = new System.Drawing.Point(45, 53);
             this.listHaltestelleVon.Name = "listHaltestelleVon";
-            this.listHaltestelleVon.Size = new System.Drawing.Size(194, 134);
+            this.listHaltestelleVon.Size = new System.Drawing.Size(200, 134);
             this.listHaltestelleVon.TabIndex = 11;
             this.listHaltestelleVon.Click += new System.EventHandler(this.listHaltestelleVon_Click);
+            // 
+            // checkOrtschaft
+            // 
+            this.checkOrtschaft.AutoSize = true;
+            this.checkOrtschaft.Location = new System.Drawing.Point(618, 99);
+            this.checkOrtschaft.Name = "checkOrtschaft";
+            this.checkOrtschaft.Size = new System.Drawing.Size(185, 17);
+            this.checkOrtschaft.TabIndex = 12;
+            this.checkOrtschaft.Text = "Ortschaft einer Haltestelle suchen";
+            this.checkOrtschaft.UseVisualStyleBackColor = true;
+            // 
+            // checkVerbindungen
+            // 
+            this.checkVerbindungen.AutoSize = true;
+            this.checkVerbindungen.Location = new System.Drawing.Point(618, 67);
+            this.checkVerbindungen.Name = "checkVerbindungen";
+            this.checkVerbindungen.Size = new System.Drawing.Size(185, 17);
+            this.checkVerbindungen.TabIndex = 12;
+            this.checkVerbindungen.Text = "Verbindungen ab einer Haltestelle";
+            this.checkVerbindungen.UseVisualStyleBackColor = true;
+            this.checkVerbindungen.CheckedChanged += new System.EventHandler(this.checkVerbindungen_CheckedChanged);
+            // 
+            // checkNaehe
+            // 
+            this.checkNaehe.AutoSize = true;
+            this.checkNaehe.Location = new System.Drawing.Point(618, 134);
+            this.checkNaehe.Name = "checkNaehe";
+            this.checkNaehe.Size = new System.Drawing.Size(218, 17);
+            this.checkNaehe.TabIndex = 13;
+            this.checkNaehe.Text = "Haltestellen in der Nähe anzeigen lassen";
+            this.checkNaehe.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(880, 450);
+            this.Controls.Add(this.checkNaehe);
+            this.Controls.Add(this.checkVerbindungen);
+            this.Controls.Add(this.checkOrtschaft);
             this.Controls.Add(this.listHaltestelleVon);
             this.Controls.Add(this.listHaltestelleBis);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVerbindungenSuchen);
             this.Controls.Add(this.dataGridView1);
@@ -185,12 +186,12 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnVerbindungenSuchen;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.ListBox listHaltestelleBis;
         private System.Windows.Forms.ListBox listHaltestelleVon;
+        private System.Windows.Forms.CheckBox checkOrtschaft;
+        private System.Windows.Forms.CheckBox checkVerbindungen;
+        private System.Windows.Forms.CheckBox checkNaehe;
     }
 }
 

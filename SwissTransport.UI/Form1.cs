@@ -20,14 +20,62 @@ namespace SwissTransport.UI
         private void btnVerbindungenSuchen_Click(object sender, EventArgs e)
         {
             var transport = new Transport();
-            var station = new Stations();
 
-            station = transport.GetStations(txtHaltestelleBis.Text);
+            var connections = transport.GetConnections(txtHaltestelleVon.Text, txtHaltestelleBis.Text);
+            
+            List<ConnectionPoint> from = new List<ConnectionPoint>();
+            List<ConnectionPoint> to = new List<ConnectionPoint>();
+            List<Station> stationFrom = new List<Station>();
+            List<Station> stationTo = new List<Station>();
 
-            listHaltestelleBis.DataSource = station.StationList;
-            listHaltestelleBis.DisplayMember = "Name";
+            foreach (var i in connections.ConnectionList)
+            {
+                from.Add(i.From);
+                to.Add(i.To);
+            }
+            
+            foreach(var i in from)
+            {
+                stationFrom.Add(i.Station);
+            }
 
-            listHaltestelleBis.Show();
+            foreach (var i in to)
+            {
+                stationTo.Add(i.Station);
+            }
+
+            DataTable datatable = new DataTable();
+
+            DataColumn column;
+            DataRow row;
+            DataView view;
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Von";
+            datatable.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Nach";
+            datatable.Columns.Add(column);
+
+            foreach (var i in stationFrom)
+            {
+                foreach (var j in stationTo)
+                {
+                    row = datatable.NewRow();
+                    row["Von"] = i.Name;
+                    row["Nach"] = j.Name;
+                    datatable.Rows.Add(row);
+                }
+                
+            }
+
+            view = new DataView(datatable);
+
+            dataGridView1.DataSource = view;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -62,6 +110,21 @@ namespace SwissTransport.UI
             Station selectedItem = (Station)listHaltestelleVon.SelectedItem;
             txtHaltestelleVon.Text = selectedItem.Name;
             listHaltestelleVon.Hide();
+        }
+
+        private void checkVerbindungen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkVerbindungen.Checked)
+            {
+                btnVerbindungenSuchen.Text = "Verbindungen ab einer Haltestelle suchen";
+                txtHaltestelleBis.ReadOnly = true;
+            }
+            else
+            {
+                btnVerbindungenSuchen.Text = "Verbindungen suchen";
+                txtHaltestelleBis.ReadOnly = false;
+            }
+            
         }
     }
 }
