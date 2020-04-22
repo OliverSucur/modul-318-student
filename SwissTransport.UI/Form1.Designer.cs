@@ -38,23 +38,26 @@
             this.button2 = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listHaltestelleBis = new System.Windows.Forms.ListBox();
+            this.listHaltestelleVon = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtHaltestelleVon
             // 
-            this.txtHaltestelleVon.Location = new System.Drawing.Point(45, 32);
+            this.txtHaltestelleVon.Location = new System.Drawing.Point(45, 27);
             this.txtHaltestelleVon.Name = "txtHaltestelleVon";
             this.txtHaltestelleVon.Size = new System.Drawing.Size(194, 20);
             this.txtHaltestelleVon.TabIndex = 0;
+            this.txtHaltestelleVon.TextChanged += new System.EventHandler(this.txtHaltestelleVon_Suchen);
             // 
             // txtHaltestelleBis
             // 
-            this.txtHaltestelleBis.Location = new System.Drawing.Point(347, 32);
+            this.txtHaltestelleBis.Location = new System.Drawing.Point(347, 27);
             this.txtHaltestelleBis.Name = "txtHaltestelleBis";
             this.txtHaltestelleBis.Size = new System.Drawing.Size(194, 20);
             this.txtHaltestelleBis.TabIndex = 1;
+            this.txtHaltestelleBis.TextChanged += new System.EventHandler(this.btnVerbindungenSuchen_Click);
             // 
             // dateTimePicker1
             // 
@@ -66,7 +69,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(45, 133);
+            this.dataGridView1.Location = new System.Drawing.Point(45, 193);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(496, 184);
             this.dataGridView1.TabIndex = 3;
@@ -103,7 +106,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(45, 341);
+            this.button2.Location = new System.Drawing.Point(45, 394);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(194, 23);
             this.button2.TabIndex = 7;
@@ -130,20 +133,31 @@
             this.radioButton3.Text = "Haltestellen in der Nähe anzeigen lassen";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // listHaltestelleBis
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(575, 222);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(260, 160);
-            this.listBox1.TabIndex = 10;
+            this.listHaltestelleBis.FormattingEnabled = true;
+            this.listHaltestelleBis.Location = new System.Drawing.Point(347, 53);
+            this.listHaltestelleBis.Name = "listHaltestelleBis";
+            this.listHaltestelleBis.Size = new System.Drawing.Size(194, 134);
+            this.listHaltestelleBis.TabIndex = 10;
+            this.listHaltestelleBis.Click += new System.EventHandler(this.listHaltestelleBis_SelectedIndexChanged);
+            // 
+            // listHaltestelleVon
+            // 
+            this.listHaltestelleVon.FormattingEnabled = true;
+            this.listHaltestelleVon.Location = new System.Drawing.Point(45, 53);
+            this.listHaltestelleVon.Name = "listHaltestelleVon";
+            this.listHaltestelleVon.Size = new System.Drawing.Size(194, 134);
+            this.listHaltestelleVon.TabIndex = 11;
+            this.listHaltestelleVon.Click += new System.EventHandler(this.listHaltestelleVon_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(880, 450);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.listHaltestelleVon);
+            this.Controls.Add(this.listHaltestelleBis);
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.button2);
@@ -156,6 +170,7 @@
             this.Controls.Add(this.txtHaltestelleVon);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -174,7 +189,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listHaltestelleBis;
+        private System.Windows.Forms.ListBox listHaltestelleVon;
     }
 }
 

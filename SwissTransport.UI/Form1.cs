@@ -17,22 +17,51 @@ namespace SwissTransport.UI
             InitializeComponent();
         }
 
-
         private void btnVerbindungenSuchen_Click(object sender, EventArgs e)
         {
-            var test = new Transport();
-            var stat = new Stations();
-            stat = test.GetStations(txtHaltestelleVon.Text);
-            //listBox1.DataSource = stat.StationList;
-            //listBox1.DisplayMember = "Name";
+            var transport = new Transport();
+            var station = new Stations();
 
-            var connection = new Connections();
-            var con1 = new Connection();
-            var con2 = new ConnectionPoint();
-            
-            connection = test.GetConnections(txtHaltestelleVon.Text, txtHaltestelleBis.Text);
-            listBox1.DataSource = connection.ConnectionList;
-            listBox1.DisplayMember = "Duration";
+            station = transport.GetStations(txtHaltestelleBis.Text);
+
+            listHaltestelleBis.DataSource = station.StationList;
+            listHaltestelleBis.DisplayMember = "Name";
+
+            listHaltestelleBis.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            listHaltestelleVon.Hide();
+            listHaltestelleBis.Hide();
+        }
+        
+
+        private void listHaltestelleBis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Station selectedItem = (Station)listHaltestelleBis.SelectedItem;
+            txtHaltestelleBis.Text = selectedItem.Name;
+            listHaltestelleBis.Hide();
+        }
+
+        private void txtHaltestelleVon_Suchen(object sender, EventArgs e)
+        {
+            var transport = new Transport();
+            var station = new Stations();
+
+            station = transport.GetStations(txtHaltestelleVon.Text);
+
+            listHaltestelleVon.DataSource = station.StationList;
+            listHaltestelleVon.DisplayMember = "Name";
+
+            listHaltestelleVon.Show();
+        }
+
+        private void listHaltestelleVon_Click(object sender, EventArgs e)
+        {
+            Station selectedItem = (Station)listHaltestelleVon.SelectedItem;
+            txtHaltestelleVon.Text = selectedItem.Name;
+            listHaltestelleVon.Hide();
         }
     }
 }
