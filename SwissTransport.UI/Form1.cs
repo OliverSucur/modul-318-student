@@ -60,22 +60,58 @@ namespace SwissTransport.UI
             column.ColumnName = "Nach";
             datatable.Columns.Add(column);
 
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Abfahrtszeit";
+            datatable.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "Ankunftszeit";
+            datatable.Columns.Add(column);
+
+
             foreach (var i in stationFrom)
             {
                 foreach (var j in stationTo)
                 {
-                    row = datatable.NewRow();
-                    row["Von"] = i.Name;
-                    row["Nach"] = j.Name;
-                    datatable.Rows.Add(row);
-                }
-                
+                    foreach (var k in from)
+                    {
+                        foreach (var l in to)
+                        {
+                            row = datatable.NewRow();
+                            row["Von"] = i.Name;
+                            row["Nach"] = j.Name;
+                            row["Abfahrtszeit"] = k.ArrivalTimestamp;
+                            row["Ankunftszeit"] = l.ArrivalTimestamp;
+                            datatable.Rows.Add(row);
+                        }
+                    }                 
+                }                
             }
 
             view = new DataView(datatable);
 
             dataGridView1.DataSource = view;
             
+            if(btnVerbindungenSuchen.Text == "Station suchen")
+            {
+                var stations = transport.GetStations(txtHaltestelleVon.Text);
+
+                List<Station> station = new List<Station>();
+
+                foreach (var i in stations.StationList)
+                {
+                    station.Add(i);
+                }
+
+                var coordinate = station[0].Coordinate;
+
+                var xCoord = coordinate.XCoordinate;
+                var yCoord = coordinate.YCoordinate;
+
+                System.Diagnostics.Process.Start("https://www.google.com/maps/place/" + xCoord + "+" + yCoord);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -116,6 +152,8 @@ namespace SwissTransport.UI
         {
             if (checkVerbindungen.Checked)
             {
+                txtHaltestelleBis.Text = "";
+                listHaltestelleBis.Hide();
                 btnVerbindungenSuchen.Text = "Verbindungen ab einer Haltestelle suchen";
                 txtHaltestelleBis.ReadOnly = true;
             }
@@ -123,8 +161,42 @@ namespace SwissTransport.UI
             {
                 btnVerbindungenSuchen.Text = "Verbindungen suchen";
                 txtHaltestelleBis.ReadOnly = false;
+            }           
+        }
+
+        private void txtHaltestelleBis_TextChanged(object sender, EventArgs e)
+        {
+            var transport = new Transport();
+            var station = new Stations();
+
+            station = transport.GetStations(txtHaltestelleBis.Text);
+
+            listHaltestelleBis.DataSource = station.StationList;
+            listHaltestelleBis.DisplayMember = "Name";
+
+            listHaltestelleBis.Show();
+        }
+
+        private void checkOrtschaft_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkVerbindungen.Checked || checkNaehe.Checked){
+                checkVerbindungen.Checked = false;
+                checkNaehe.Checked = false;
             }
-            
+
+            if (checkOrtschaft.Checked)
+            {
+                txtHaltestelleBis.Text = "";
+                listHaltestelleBis.Hide();
+                txtHaltestelleBis.ReadOnly = true;
+                btnVerbindungenSuchen.Text = "Station suchen";
+            }
+            else
+            {
+                txtHaltestelleBis.ReadOnly = false;
+                btnVerbindungenSuchen.Text = "Verbindungen suchen";
+                return;
+            }
         }
     }
 }

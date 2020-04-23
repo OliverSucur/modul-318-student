@@ -57,10 +57,11 @@
             this.txtHaltestelleBis.Name = "txtHaltestelleBis";
             this.txtHaltestelleBis.Size = new System.Drawing.Size(200, 20);
             this.txtHaltestelleBis.TabIndex = 1;
-            this.txtHaltestelleBis.TextChanged += new System.EventHandler(this.btnVerbindungenSuchen_Click);
+            this.txtHaltestelleBis.TextChanged += new System.EventHandler(this.txtHaltestelleBis_TextChanged);
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTimePicker1.Location = new System.Drawing.Point(45, 81);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
@@ -96,7 +97,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(45, 394);
+            this.button2.Location = new System.Drawing.Point(45, 383);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(194, 23);
             this.button2.TabIndex = 7;
@@ -130,6 +131,7 @@
             this.checkOrtschaft.TabIndex = 12;
             this.checkOrtschaft.Text = "Ortschaft einer Haltestelle suchen";
             this.checkOrtschaft.UseVisualStyleBackColor = true;
+            this.checkOrtschaft.CheckedChanged += new System.EventHandler(this.checkOrtschaft_CheckedChanged);
             // 
             // checkVerbindungen
             // 
@@ -145,7 +147,7 @@
             // checkNaehe
             // 
             this.checkNaehe.AutoSize = true;
-            this.checkNaehe.Location = new System.Drawing.Point(618, 134);
+            this.checkNaehe.Location = new System.Drawing.Point(618, 132);
             this.checkNaehe.Name = "checkNaehe";
             this.checkNaehe.Size = new System.Drawing.Size(218, 17);
             this.checkNaehe.TabIndex = 13;
@@ -156,7 +158,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 450);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(880, 419);
             this.Controls.Add(this.checkNaehe);
             this.Controls.Add(this.checkVerbindungen);
             this.Controls.Add(this.checkOrtschaft);
