@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Device.Location;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,80 +22,53 @@ namespace SwissTransport.UI
         {
             var transport = new Transport();
 
-            var connections = transport.GetConnections(txtHaltestelleVon.Text, txtHaltestelleBis.Text);
-            
-            List<ConnectionPoint> from = new List<ConnectionPoint>();
-            List<ConnectionPoint> to = new List<ConnectionPoint>();
-            List<Station> stationFrom = new List<Station>();
-            List<Station> stationTo = new List<Station>();
-
-            foreach (var i in connections.ConnectionList)
+            if (btnVerbindungenSuchen.Text == "Verbindungen suchen")
             {
-                from.Add(i.From);
-                to.Add(i.To);
-            }
-            
-            foreach(var i in from)
-            {
-                stationFrom.Add(i.Station);
-            }
+                var connections = transport.GetConnections(txtHaltestelleVon.Text, txtHaltestelleBis.Text);
 
-            foreach (var i in to)
-            {
-                stationTo.Add(i.Station);
-            }
+                DataTable datatable = new DataTable();
 
-            DataTable datatable = new DataTable();
+                DataColumn column;
+                DataRow row;
+                DataView view;
 
-            DataColumn column;
-            DataRow row;
-            DataView view;
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Von";
+                datatable.Columns.Add(column);
 
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Von";
-            datatable.Columns.Add(column);
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Nach";
+                datatable.Columns.Add(column);
 
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Nach";
-            datatable.Columns.Add(column);
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Abfahrtszeit";
+                datatable.Columns.Add(column);
 
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Abfahrtszeit";
-            datatable.Columns.Add(column);
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Ankunftszeit";
+                datatable.Columns.Add(column);
 
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Ankunftszeit";
-            datatable.Columns.Add(column);
-
-
-            foreach (var i in stationFrom)
-            {
-                foreach (var j in stationTo)
+                foreach (var i in connections.ConnectionList)
                 {
-                    foreach (var k in from)
-                    {
-                        foreach (var l in to)
-                        {
-                            row = datatable.NewRow();
-                            row["Von"] = i.Name;
-                            row["Nach"] = j.Name;
-                            row["Abfahrtszeit"] = k.ArrivalTimestamp;
-                            row["Ankunftszeit"] = l.ArrivalTimestamp;
-                            datatable.Rows.Add(row);
-                        }
-                    }                 
-                }                
+                    row = datatable.NewRow();
+                    row["Von"] = i.From.Station.Name;
+                    row["Nach"] = i.To.Station.Name;
+                    row["Abfahrtszeit"] = i.From.Arrival;
+                    row["Ankunftszeit"] = i.To.Arrival;
+                    datatable.Rows.Add(row);
+                }
+
+                view = new DataView(datatable);
+
+                dataGridView1.DataSource = view;
             }
 
-            view = new DataView(datatable);
 
-            dataGridView1.DataSource = view;
-            
-            if(btnVerbindungenSuchen.Text == "Station suchen")
+            if (btnVerbindungenSuchen.Text == "Station suchen")
             {
                 var stations = transport.GetStations(txtHaltestelleVon.Text);
 
@@ -112,14 +86,29 @@ namespace SwissTransport.UI
 
                 System.Diagnostics.Process.Start("https://www.google.com/maps/place/" + xCoord + "+" + yCoord);
             }
+
+            if (btnVerbindungenSuchen.Text == "Station in der Nähe suchen")
+            {
+                GeoCoordinateWatcher watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+
+                var stations = transport.GetStations("");
+            }
+
+            if (btnVerbindungenSuchen.Text == "Verbindungen ab einer Haltestelle suchen")
+            {
+                var stationboard = transport.GetStationBoard(txtHaltestelleVon.Text);
+
+                dataGridView1.DataSource = stationboard.Entries;
+            }
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             listHaltestelleVon.Hide();
             listHaltestelleBis.Hide();
         }
-        
+
 
         private void listHaltestelleBis_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -161,7 +150,7 @@ namespace SwissTransport.UI
             {
                 btnVerbindungenSuchen.Text = "Verbindungen suchen";
                 txtHaltestelleBis.ReadOnly = false;
-            }           
+            }
         }
 
         private void txtHaltestelleBis_TextChanged(object sender, EventArgs e)
@@ -179,7 +168,8 @@ namespace SwissTransport.UI
 
         private void checkOrtschaft_CheckedChanged(object sender, EventArgs e)
         {
-            if(checkVerbindungen.Checked || checkNaehe.Checked){
+            if (checkVerbindungen.Checked || checkNaehe.Checked)
+            {
                 checkVerbindungen.Checked = false;
                 checkNaehe.Checked = false;
             }
@@ -190,6 +180,29 @@ namespace SwissTransport.UI
                 listHaltestelleBis.Hide();
                 txtHaltestelleBis.ReadOnly = true;
                 btnVerbindungenSuchen.Text = "Station suchen";
+            }
+            else
+            {
+                txtHaltestelleBis.ReadOnly = false;
+                btnVerbindungenSuchen.Text = "Verbindungen suchen";
+                return;
+            }
+        }
+
+        private void checkNaehe_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkVerbindungen.Checked || checkOrtschaft.Checked)
+            {
+                checkVerbindungen.Checked = false;
+                checkOrtschaft.Checked = false;
+            }
+
+            if (checkNaehe.Checked)
+            {
+                txtHaltestelleBis.Text = "";
+                listHaltestelleBis.Hide();
+                txtHaltestelleBis.ReadOnly = true;
+                btnVerbindungenSuchen.Text = "Station in der Nähe suchen";
             }
             else
             {

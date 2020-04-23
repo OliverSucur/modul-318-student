@@ -34,12 +34,15 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnVerbindungenSuchen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnWeiterleiten = new System.Windows.Forms.Button();
             this.listHaltestelleBis = new System.Windows.Forms.ListBox();
             this.listHaltestelleVon = new System.Windows.Forms.ListBox();
             this.checkOrtschaft = new System.Windows.Forms.CheckBox();
             this.checkVerbindungen = new System.Windows.Forms.CheckBox();
             this.checkNaehe = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnMeinung = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,6 +87,7 @@
             this.btnVerbindungenSuchen.Text = "Verbindungen suchen";
             this.btnVerbindungenSuchen.UseVisualStyleBackColor = true;
             this.btnVerbindungenSuchen.Click += new System.EventHandler(this.btnVerbindungenSuchen_Click);
+            this.btnVerbindungenSuchen.Enter += new System.EventHandler(this.btnVerbindungenSuchen_Click);
             // 
             // label1
             // 
@@ -95,19 +99,19 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Erweiterte Suche";
             // 
-            // button2
+            // btnWeiterleiten
             // 
-            this.button2.Location = new System.Drawing.Point(45, 383);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(194, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Weiterleiten";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnWeiterleiten.Location = new System.Drawing.Point(45, 383);
+            this.btnWeiterleiten.Name = "btnWeiterleiten";
+            this.btnWeiterleiten.Size = new System.Drawing.Size(194, 23);
+            this.btnWeiterleiten.TabIndex = 7;
+            this.btnWeiterleiten.Text = "Suchresultate weiterleiten";
+            this.btnWeiterleiten.UseVisualStyleBackColor = true;
             // 
             // listHaltestelleBis
             // 
             this.listHaltestelleBis.FormattingEnabled = true;
-            this.listHaltestelleBis.Location = new System.Drawing.Point(341, 53);
+            this.listHaltestelleBis.Location = new System.Drawing.Point(298, 53);
             this.listHaltestelleBis.Name = "listHaltestelleBis";
             this.listHaltestelleBis.Size = new System.Drawing.Size(200, 134);
             this.listHaltestelleBis.TabIndex = 10;
@@ -138,9 +142,9 @@
             this.checkVerbindungen.AutoSize = true;
             this.checkVerbindungen.Location = new System.Drawing.Point(618, 67);
             this.checkVerbindungen.Name = "checkVerbindungen";
-            this.checkVerbindungen.Size = new System.Drawing.Size(185, 17);
+            this.checkVerbindungen.Size = new System.Drawing.Size(223, 17);
             this.checkVerbindungen.TabIndex = 12;
-            this.checkVerbindungen.Text = "Verbindungen ab einer Haltestelle";
+            this.checkVerbindungen.Text = "Verbindungen ab einer Haltestelle suchen";
             this.checkVerbindungen.UseVisualStyleBackColor = true;
             this.checkVerbindungen.CheckedChanged += new System.EventHandler(this.checkVerbindungen_CheckedChanged);
             // 
@@ -153,6 +157,35 @@
             this.checkNaehe.TabIndex = 13;
             this.checkNaehe.Text = "Haltestellen in der Nähe anzeigen lassen";
             this.checkNaehe.UseVisualStyleBackColor = true;
+            this.checkNaehe.CheckedChanged += new System.EventHandler(this.checkNaehe_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(613, 273);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 25);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Kritik";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(615, 311);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(208, 26);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Damit wir uns laufend verbessern können, \r\nwären wir froh um Ihre Meinung.";
+            // 
+            // btnMeinung
+            // 
+            this.btnMeinung.Location = new System.Drawing.Point(618, 354);
+            this.btnMeinung.Name = "btnMeinung";
+            this.btnMeinung.Size = new System.Drawing.Size(205, 23);
+            this.btnMeinung.TabIndex = 16;
+            this.btnMeinung.Text = "Meinung abgeben";
+            this.btnMeinung.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -160,12 +193,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(880, 419);
+            this.Controls.Add(this.btnMeinung);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.checkNaehe);
             this.Controls.Add(this.checkVerbindungen);
             this.Controls.Add(this.checkOrtschaft);
             this.Controls.Add(this.listHaltestelleVon);
             this.Controls.Add(this.listHaltestelleBis);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnWeiterleiten);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVerbindungenSuchen);
             this.Controls.Add(this.dataGridView1);
@@ -189,12 +225,15 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnVerbindungenSuchen;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnWeiterleiten;
         private System.Windows.Forms.ListBox listHaltestelleBis;
         private System.Windows.Forms.ListBox listHaltestelleVon;
         private System.Windows.Forms.CheckBox checkOrtschaft;
         private System.Windows.Forms.CheckBox checkVerbindungen;
         private System.Windows.Forms.CheckBox checkNaehe;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnMeinung;
     }
 }
 
