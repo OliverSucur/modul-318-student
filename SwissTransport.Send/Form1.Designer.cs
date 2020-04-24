@@ -1,6 +1,6 @@
 ﻿namespace SwissTransport.Send
 {
-    partial class Form1
+    partial class FormSend
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -29,45 +29,85 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
-            this.btnSenden = new System.Windows.Forms.Button();
+            this.txtFromName = new System.Windows.Forms.TextBox();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtEmailTo = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtSubject = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 28);
+            this.label1.Location = new System.Drawing.Point(12, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.Size = new System.Drawing.Size(54, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "E-Mail";
+            this.label1.Text = "Von wem:";
             // 
-            // txtEmail
+            // txtFromName
             // 
-            this.txtEmail.Location = new System.Drawing.Point(69, 25);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(188, 20);
-            this.txtEmail.TabIndex = 1;
+            this.txtFromName.Location = new System.Drawing.Point(113, 28);
+            this.txtFromName.Name = "txtFromName";
+            this.txtFromName.Size = new System.Drawing.Size(188, 20);
+            this.txtFromName.TabIndex = 1;
             // 
-            // btnSenden
+            // btnSend
             // 
-            this.btnSenden.Location = new System.Drawing.Point(277, 23);
-            this.btnSenden.Name = "btnSenden";
-            this.btnSenden.Size = new System.Drawing.Size(75, 23);
-            this.btnSenden.TabIndex = 2;
-            this.btnSenden.Text = "Senden";
-            this.btnSenden.UseVisualStyleBackColor = true;
-            this.btnSenden.Click += new System.EventHandler(this.btnSenden_Click);
+            this.btnSend.Location = new System.Drawing.Point(15, 149);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(88, 23);
+            this.btnSend.TabIndex = 2;
+            this.btnSend.Text = "Senden";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSenden_Click);
             // 
-            // Form1
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 71);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "E-Mail an:";
+            // 
+            // txtEmailTo
+            // 
+            this.txtEmailTo.Location = new System.Drawing.Point(113, 68);
+            this.txtEmailTo.Name = "txtEmailTo";
+            this.txtEmailTo.Size = new System.Drawing.Size(188, 20);
+            this.txtEmailTo.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 112);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Betreff der E-Mail:";
+            // 
+            // txtSubject
+            // 
+            this.txtSubject.Location = new System.Drawing.Point(113, 109);
+            this.txtSubject.Name = "txtSubject";
+            this.txtSubject.Size = new System.Drawing.Size(188, 20);
+            this.txtSubject.TabIndex = 6;
+            // 
+            // FormSend
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(473, 85);
-            this.Controls.Add(this.btnSenden);
-            this.Controls.Add(this.txtEmail);
+            this.ClientSize = new System.Drawing.Size(495, 194);
+            this.Controls.Add(this.txtSubject);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.txtEmailTo);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnSend);
+            this.Controls.Add(this.txtFromName);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "FormSend";
             this.Text = " ";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -77,8 +117,12 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Button btnSenden;
+        private System.Windows.Forms.TextBox txtFromName;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtEmailTo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtSubject;
     }
 }
 

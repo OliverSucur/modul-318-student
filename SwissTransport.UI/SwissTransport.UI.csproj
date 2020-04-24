@@ -85,6 +85,10 @@
       <Project>{d0262178-a48f-4de0-807b-e76b63e39421}</Project>
       <Name>SwissTransport</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SwissTransport.Send\SwissTransport.Send.csproj">
+      <Project>{c236e07e-73c5-4852-ae0a-a31aec125a2f}</Project>
+      <Name>SwissTransport.Send</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

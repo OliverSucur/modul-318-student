@@ -30,19 +30,20 @@
         {
             this.txtHaltestelleVon = new System.Windows.Forms.TextBox();
             this.txtHaltestelleBis = new System.Windows.Forms.TextBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.timePicker = new System.Windows.Forms.DateTimePicker();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnVerbindungenSuchen = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnWeiterleiten = new System.Windows.Forms.Button();
             this.listHaltestelleBis = new System.Windows.Forms.ListBox();
-            this.listHaltestelleVon = new System.Windows.Forms.ListBox();
             this.checkOrtschaft = new System.Windows.Forms.CheckBox();
             this.checkVerbindungen = new System.Windows.Forms.CheckBox();
             this.checkNaehe = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnMeinung = new System.Windows.Forms.Button();
+            this.datePicker = new System.Windows.Forms.DateTimePicker();
+            this.listHaltestelleVon = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,13 +63,14 @@
             this.txtHaltestelleBis.TabIndex = 1;
             this.txtHaltestelleBis.TextChanged += new System.EventHandler(this.txtHaltestelleBis_TextChanged);
             // 
-            // dateTimePicker1
+            // timePicker
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker1.Location = new System.Drawing.Point(45, 81);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 2;
+            this.timePicker.CustomFormat = "hh:mm";
+            this.timePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timePicker.Location = new System.Drawing.Point(45, 94);
+            this.timePicker.Name = "timePicker";
+            this.timePicker.Size = new System.Drawing.Size(200, 20);
+            this.timePicker.TabIndex = 2;
             // 
             // dataGridView1
             // 
@@ -107,24 +109,16 @@
             this.btnWeiterleiten.TabIndex = 7;
             this.btnWeiterleiten.Text = "Suchresultate weiterleiten";
             this.btnWeiterleiten.UseVisualStyleBackColor = true;
+            this.btnWeiterleiten.Click += new System.EventHandler(this.btnWeiterleiten_Click_1);
             // 
             // listHaltestelleBis
             // 
             this.listHaltestelleBis.FormattingEnabled = true;
-            this.listHaltestelleBis.Location = new System.Drawing.Point(298, 53);
+            this.listHaltestelleBis.Location = new System.Drawing.Point(341, 53);
             this.listHaltestelleBis.Name = "listHaltestelleBis";
             this.listHaltestelleBis.Size = new System.Drawing.Size(200, 134);
             this.listHaltestelleBis.TabIndex = 10;
             this.listHaltestelleBis.Click += new System.EventHandler(this.listHaltestelleBis_SelectedIndexChanged);
-            // 
-            // listHaltestelleVon
-            // 
-            this.listHaltestelleVon.FormattingEnabled = true;
-            this.listHaltestelleVon.Location = new System.Drawing.Point(45, 53);
-            this.listHaltestelleVon.Name = "listHaltestelleVon";
-            this.listHaltestelleVon.Size = new System.Drawing.Size(200, 134);
-            this.listHaltestelleVon.TabIndex = 11;
-            this.listHaltestelleVon.Click += new System.EventHandler(this.listHaltestelleVon_Click);
             // 
             // checkOrtschaft
             // 
@@ -187,25 +181,44 @@
             this.btnMeinung.Text = "Meinung abgeben";
             this.btnMeinung.UseVisualStyleBackColor = true;
             // 
+            // datePicker
+            // 
+            this.datePicker.CustomFormat = "yyyy-MM-dd";
+            this.datePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.datePicker.Location = new System.Drawing.Point(45, 59);
+            this.datePicker.Name = "datePicker";
+            this.datePicker.Size = new System.Drawing.Size(200, 20);
+            this.datePicker.TabIndex = 17;
+            // 
+            // listHaltestelleVon
+            // 
+            this.listHaltestelleVon.FormattingEnabled = true;
+            this.listHaltestelleVon.Location = new System.Drawing.Point(45, 53);
+            this.listHaltestelleVon.Name = "listHaltestelleVon";
+            this.listHaltestelleVon.Size = new System.Drawing.Size(200, 134);
+            this.listHaltestelleVon.TabIndex = 18;
+            this.listHaltestelleVon.Click += new System.EventHandler(this.listHaltestelleVon_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(880, 419);
+            this.Controls.Add(this.listHaltestelleVon);
+            this.Controls.Add(this.datePicker);
             this.Controls.Add(this.btnMeinung);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkNaehe);
             this.Controls.Add(this.checkVerbindungen);
             this.Controls.Add(this.checkOrtschaft);
-            this.Controls.Add(this.listHaltestelleVon);
             this.Controls.Add(this.listHaltestelleBis);
             this.Controls.Add(this.btnWeiterleiten);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVerbindungenSuchen);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.timePicker);
             this.Controls.Add(this.txtHaltestelleBis);
             this.Controls.Add(this.txtHaltestelleVon);
             this.Name = "Form1";
@@ -221,19 +234,20 @@
 
         private System.Windows.Forms.TextBox txtHaltestelleVon;
         private System.Windows.Forms.TextBox txtHaltestelleBis;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker timePicker;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnVerbindungenSuchen;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnWeiterleiten;
         private System.Windows.Forms.ListBox listHaltestelleBis;
-        private System.Windows.Forms.ListBox listHaltestelleVon;
         private System.Windows.Forms.CheckBox checkOrtschaft;
         private System.Windows.Forms.CheckBox checkVerbindungen;
         private System.Windows.Forms.CheckBox checkNaehe;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnMeinung;
+        private System.Windows.Forms.DateTimePicker datePicker;
+        private System.Windows.Forms.ListBox listHaltestelleVon;
     }
 }
 

@@ -10,16 +10,21 @@ using System.Windows.Forms;
 
 namespace SwissTransport.Send
 {
-    public partial class Form1 : Form
+    public partial class FormSend : Form
     {
-        public Form1()
+        public FormSend()
         {
             InitializeComponent();
         }
 
         private void btnSenden_Click(object sender, EventArgs e)
         {
+            var email = Email.getInstance();
+            email.fromName = txtFromName.Text;
+            email.emailTo = txtEmailTo.Text;
+            email.subject = txtSubject.Text;
 
+            email.SendEmailConnections();
         }
     }
 }

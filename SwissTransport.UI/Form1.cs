@@ -5,6 +5,8 @@ using System.Data;
 using System.Device.Location;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,19 +20,22 @@ namespace SwissTransport.UI
             InitializeComponent();
         }
 
+        DataView view;
         private void btnVerbindungenSuchen_Click(object sender, EventArgs e)
         {
             var transport = new Transport();
 
+            string date = datePicker.Text;
+            string time = timePicker.Text;
+
             if (btnVerbindungenSuchen.Text == "Verbindungen suchen")
             {
-                var connections = transport.GetConnections(txtHaltestelleVon.Text, txtHaltestelleBis.Text);
+                var connections = transport.GetConnections(txtHaltestelleVon.Text, txtHaltestelleBis.Text, date, time);
 
                 DataTable datatable = new DataTable();
 
                 DataColumn column;
                 DataRow row;
-                DataView view;
 
                 column = new DataColumn();
                 column.DataType = System.Type.GetType("System.String");
@@ -52,19 +57,40 @@ namespace SwissTransport.UI
                 column.ColumnName = "Ankunftszeit";
                 datatable.Columns.Add(column);
 
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = "Verspätung";
+                datatable.Columns.Add(column);
+                
+                string arrival;
+                string departure;
+
                 foreach (var i in connections.ConnectionList)
                 {
+                    arrival = i.To.Arrival;
+                    arrival = arrival.Remove(arrival.Length - 8);
+                    arrival = arrival.Substring(11);
+                    
+                    departure = i.From.Departure;
+                    departure = departure.Remove(departure.Length - 8);
+                    departure = departure.Substring(11);
+                    
                     row = datatable.NewRow();
                     row["Von"] = i.From.Station.Name;
+                    row["Ankunftszeit"] = arrival;
                     row["Nach"] = i.To.Station.Name;
-                    row["Abfahrtszeit"] = i.From.Arrival;
-                    row["Ankunftszeit"] = i.To.Arrival;
+                    row["Abfahrtszeit"] = departure;
+                    //row["Verspätung"] = i.From.Delay.ToString();
+                    
                     datatable.Rows.Add(row);
                 }
 
                 view = new DataView(datatable);
 
                 dataGridView1.DataSource = view;
+
+                var email = Email.getInstance();
+                email.data = GetDataGridData();
             }
 
 
@@ -89,9 +115,23 @@ namespace SwissTransport.UI
 
             if (btnVerbindungenSuchen.Text == "Station in der Nähe suchen")
             {
-                GeoCoordinateWatcher watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+                
+                GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
 
-                var stations = transport.GetStations("");
+                watcher.TryStart(false, TimeSpan.FromMilliseconds(1000));
+
+                GeoCoordinate coord = watcher.Position.Location;
+
+                if (coord.IsUnknown != true)
+                {
+                    Console.WriteLine("Lat: {0}, Long: {1}",
+                        coord.Latitude,
+                        coord.Longitude);
+                }
+                else
+                {
+                    Console.WriteLine("Unknown latitude and longitude.");
+                }
             }
 
             if (btnVerbindungenSuchen.Text == "Verbindungen ab einer Haltestelle suchen")
@@ -102,13 +142,26 @@ namespace SwissTransport.UI
             }
         }
 
-
+        public string GetDataGridData()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (DataGridViewRow rowTemp in dataGridView1.Rows)
+            {
+                foreach (DataGridViewCell cell in rowTemp.Cells)
+                {
+                    sb.Append(cell.Value);
+                    sb.Append(';');
+                }
+                sb.Remove(sb.Length - 1, 1);
+                sb.AppendLine();
+            }
+            return sb.ToString();
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             listHaltestelleVon.Hide();
             listHaltestelleBis.Hide();
         }
-
 
         private void listHaltestelleBis_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -210,6 +263,25 @@ namespace SwissTransport.UI
                 btnVerbindungenSuchen.Text = "Verbindungen suchen";
                 return;
             }
+        }
+
+        private void btnWeiterleiten_Click(object sender, EventArgs e)
+        {
+            SwissTransport.Send.FormSend form = new SwissTransport.Send.FormSend();
+            form.Show();
+        }
+
+        private void listHaltestelleVon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Station selectedItem = (Station)listHaltestelleVon.SelectedItem;
+            txtHaltestelleVon.Text = selectedItem.Name;
+            listHaltestelleVon.Hide();
+        }
+
+        private void btnWeiterleiten_Click_1(object sender, EventArgs e)
+        {
+            SwissTransport.Send.FormSend form = new SwissTransport.Send.FormSend();
+            form.Show();
         }
     }
 }
