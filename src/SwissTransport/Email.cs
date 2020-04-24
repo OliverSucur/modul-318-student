@@ -45,8 +45,31 @@ namespace SwissTransport
                 client.Credentials = new NetworkCredential("oev.app@gmail.com", "BestApplication4ever2020created!");
                 MailMessage msg = new MailMessage();
                 msg.To.Add(emailTo);
-                msg.From = new MailAddress(fromName);
+                msg.From = new MailAddress("oev.app@gmail.com");
                 msg.Subject = subject;
+                msg.Body = data;
+                client.Send(msg);
+                MessageBox.Show("E-Mail erfolgreicht versandt!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public void SendEmailOpinion()
+        {
+            try
+            {
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                client.EnableSsl = true;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential("oev.app@gmail.com", "BestApplication4ever2020created!");
+                MailMessage msg = new MailMessage();
+                msg.To.Add("oli.sucur@gmx.ch");
+                msg.From = new MailAddress("oev.app@gmail.com");
+                msg.Subject = "ÖV-Applikation: Meinung eines Benutzers";
                 msg.Body = data;
                 client.Send(msg);
                 MessageBox.Show("E-Mail erfolgreicht versandt!");

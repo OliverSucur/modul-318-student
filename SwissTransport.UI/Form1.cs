@@ -28,14 +28,16 @@ namespace SwissTransport.UI
             string date = datePicker.Text;
             string time = timePicker.Text;
 
+            DataTable datatable = new DataTable();
+
+            DataColumn column;
+            DataRow row;
+
+            
+
             if (btnVerbindungenSuchen.Text == "Verbindungen suchen")
             {
                 var connections = transport.GetConnections(txtHaltestelleVon.Text, txtHaltestelleBis.Text, date, time);
-
-                DataTable datatable = new DataTable();
-
-                DataColumn column;
-                DataRow row;
 
                 column = new DataColumn();
                 column.DataType = System.Type.GetType("System.String");
@@ -59,18 +61,22 @@ namespace SwissTransport.UI
 
                 column = new DataColumn();
                 column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = "Verspätung";
+                column.ColumnName = "Dauer";
                 datatable.Columns.Add(column);
-                
-                string arrival;
-                string departure;
+
+                string arrival = "";
+                string departure = "";
+                string duration = "";
+
+                StringBuilder sb = new StringBuilder(duration);
 
                 foreach (var i in connections.ConnectionList)
                 {
                     arrival = i.To.Arrival;
                     arrival = arrival.Remove(arrival.Length - 8);
                     arrival = arrival.Substring(11);
-                    
+                    duration = i.Duration.Substring(3, 8).Replace(":00", "min").Replace(":", "h");
+
                     departure = i.From.Departure;
                     departure = departure.Remove(departure.Length - 8);
                     departure = departure.Substring(11);
@@ -80,13 +86,12 @@ namespace SwissTransport.UI
                     row["Ankunftszeit"] = arrival;
                     row["Nach"] = i.To.Station.Name;
                     row["Abfahrtszeit"] = departure;
-                    //row["Verspätung"] = i.From.Delay.ToString();
+                    row["Dauer"] = duration;
                     
                     datatable.Rows.Add(row);
                 }
 
                 view = new DataView(datatable);
-
                 dataGridView1.DataSource = view;
 
                 var email = Email.getInstance();
@@ -137,9 +142,9 @@ namespace SwissTransport.UI
             if (btnVerbindungenSuchen.Text == "Verbindungen ab einer Haltestelle suchen")
             {
                 var stationboard = transport.GetStationBoard(txtHaltestelleVon.Text);
-
                 dataGridView1.DataSource = stationboard.Entries;
             }
+
         }
 
         public string GetDataGridData()
@@ -221,14 +226,9 @@ namespace SwissTransport.UI
 
         private void checkOrtschaft_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkVerbindungen.Checked || checkNaehe.Checked)
-            {
-                checkVerbindungen.Checked = false;
-                checkNaehe.Checked = false;
-            }
-
             if (checkOrtschaft.Checked)
             {
+                checkOrtschaft.Checked = true;
                 txtHaltestelleBis.Text = "";
                 listHaltestelleBis.Hide();
                 txtHaltestelleBis.ReadOnly = true;
@@ -244,12 +244,6 @@ namespace SwissTransport.UI
 
         private void checkNaehe_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkVerbindungen.Checked || checkOrtschaft.Checked)
-            {
-                checkVerbindungen.Checked = false;
-                checkOrtschaft.Checked = false;
-            }
-
             if (checkNaehe.Checked)
             {
                 txtHaltestelleBis.Text = "";
@@ -281,6 +275,13 @@ namespace SwissTransport.UI
         private void btnWeiterleiten_Click_1(object sender, EventArgs e)
         {
             SwissTransport.Send.FormSend form = new SwissTransport.Send.FormSend();
+            form.Show();
+        }
+
+        private void btnMeinung_Click(object sender, EventArgs e)
+        {
+            SwissTransport.Kritik.Form1 form = new SwissTransport.Kritik.Form1();
+
             form.Show();
         }
     }

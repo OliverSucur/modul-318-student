@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTransport.UI", "SwissT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTransport.Send", "SwissTransport.Send\SwissTransport.Send.csproj", "{C236E07E-73C5-4852-AE0A-A31AEC125A2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTransport.Kritik", "SwissTransport.Kritik\SwissTransport.Kritik.csproj", "{597516FE-0A37-4710-96D8-0C31CDD138E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C236E07E-73C5-4852-AE0A-A31AEC125A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C236E07E-73C5-4852-AE0A-A31AEC125A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C236E07E-73C5-4852-AE0A-A31AEC125A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{597516FE-0A37-4710-96D8-0C31CDD138E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{597516FE-0A37-4710-96D8-0C31CDD138E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{597516FE-0A37-4710-96D8-0C31CDD138E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{597516FE-0A37-4710-96D8-0C31CDD138E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

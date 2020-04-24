@@ -69,6 +69,7 @@
             this.timePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.timePicker.Location = new System.Drawing.Point(45, 94);
             this.timePicker.Name = "timePicker";
+            this.timePicker.ShowUpDown = true;
             this.timePicker.Size = new System.Drawing.Size(200, 20);
             this.timePicker.TabIndex = 2;
             // 
@@ -180,6 +181,7 @@
             this.btnMeinung.TabIndex = 16;
             this.btnMeinung.Text = "Meinung abgeben";
             this.btnMeinung.UseVisualStyleBackColor = true;
+            this.btnMeinung.Click += new System.EventHandler(this.btnMeinung_Click);
             // 
             // datePicker
             // 
