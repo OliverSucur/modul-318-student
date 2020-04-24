@@ -33,5 +33,14 @@ namespace SwissTransport
 
             Assert.IsNotNull(connections);
         }
+
+        [TestMethod]
+        public void NearestStations()
+        {
+            testee = new Transport();
+            var stations = testee.GetNearestStation("46.1454", "6.1364");
+
+            Assert.IsNotNull(stations);
+        }
     }
 }

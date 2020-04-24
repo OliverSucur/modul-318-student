@@ -25,6 +25,7 @@ namespace SwissTransport.Kritik
 
             email.data = text;
             email.SendEmailOpinion();
+            this.Close();
         }
     }
 }

@@ -11,16 +11,16 @@ namespace SwissTransport
 {
     public class Email
     {
+        //Membervariablem
         public string data { get; set; }
-        public string fromName { get; set; }
         public string emailTo { get; set; }
         public string subject { get; set; }
         private static Email instance;
         
+        //Konstruktoren
         private Email()
         {
             data = null;
-            fromName = null;
             emailTo = null;
             subject = null;
             instance = null;
@@ -34,15 +34,21 @@ namespace SwissTransport
             return instance;
         }
 
+        //Methoden
         public void SendEmailConnections()
         {
             try
             {
+                //Smtp Objekt instanzierung
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                
+                //client konfigurierung
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential("oev.app@gmail.com", "BestApplication4ever2020created!");
+               
+                //Email Nachricht konfigurieren
                 MailMessage msg = new MailMessage();
                 msg.To.Add(emailTo);
                 msg.From = new MailAddress("oev.app@gmail.com");
@@ -61,11 +67,16 @@ namespace SwissTransport
         {
             try
             {
+                //Smtp Objekt instanzierung
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                
+                //client konfigurierung
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential("oev.app@gmail.com", "BestApplication4ever2020created!");
+                
+                //Email Nachricht konfigurieren
                 MailMessage msg = new MailMessage();
                 msg.To.Add("oli.sucur@gmx.ch");
                 msg.From = new MailAddress("oev.app@gmail.com");

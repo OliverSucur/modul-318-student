@@ -19,12 +19,22 @@ namespace SwissTransport.Send
 
         private void btnSenden_Click(object sender, EventArgs e)
         {
-            var email = Email.getInstance();
-            email.fromName = txtFromName.Text;
-            email.emailTo = txtEmailTo.Text;
-            email.subject = txtSubject.Text;
+            try
+            {
+                //Objekt der Klasse Email bekommen und Members setzen
+                var email = Email.getInstance();
+                email.emailTo = txtEmailTo.Text;
+                email.subject = txtSubject.Text;
 
-            email.SendEmailConnections();
+                //Email senden
+                email.SendEmailConnections();
+                //Form schliessen
+                this.Close();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.txtOpinion = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSend = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtOpinion
             // 
-            this.txtOpinion.Location = new System.Drawing.Point(61, 93);
+            this.txtOpinion.Location = new System.Drawing.Point(61, 158);
             this.txtOpinion.Name = "txtOpinion";
-            this.txtOpinion.Size = new System.Drawing.Size(660, 301);
+            this.txtOpinion.Size = new System.Drawing.Size(464, 236);
             this.txtOpinion.TabIndex = 0;
             this.txtOpinion.Text = "";
             // 
@@ -62,16 +64,29 @@
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(61, 77);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(454, 32);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Damit wir uns stetig verbessern können, wären wir sehr froh über Ihre Kritik, \r\nw" +
+    "elche zur Verbesserung dieser Applikation dient. ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtOpinion);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Ihre Meinung";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -82,6 +97,7 @@
         private System.Windows.Forms.RichTextBox txtOpinion;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Label label2;
     }
 }
 
